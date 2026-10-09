@@ -41,14 +41,14 @@ const STOP_BEFORE_DOUBLE = params.get("stop") === "beforedouble";
 function hostOk() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "GoldHEN v2.4b18.12 Loaded ...";
+        m.innerHTML = "Membuka Kunci Game Berhasil, Klik O (O Pertebal/Perjelas) Untuk Kembali";
     }
 }
 
 function hostFail() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "Failed to Load! Restart Your Console ...";
+        m.innerHTML = "Gagal Membuka Kunci Game, Restart?Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
         m.style.color = "yellow";
     }
 }
@@ -455,7 +455,7 @@ let payloadRunning = false;
                 mark("ALREADY-ROOT", "getuid=" + uid0 + " setuid(0)=" + su0);
                 var m = document.getElementById("msgs");
                 if (m) {
-                    m.innerHTML = "GoldHEN is Already Loaded ...";
+                    m.innerHTML = "Mohon Kembali!! Game Sudah Tidak Terkunci Dan Bisa Dimainkan";
                 }
                 return;
             }
