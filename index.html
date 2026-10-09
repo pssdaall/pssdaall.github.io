@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PS4 Host - Playbox Sidoarjo FW 5.05 - 13.52 GoldHEN</title>
+    <title>PS4 [5.05] 7.00 - 13.52 FW GoldHEN Host - Playbox Sidoarjo</title>
 <script>
 var uaFull = navigator.userAgent;
 var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
@@ -12,12 +12,12 @@ var fwVersion = isPS4 ? match[1] : "Unknown";
 var fwNum = parseFloat(fwVersion);
 
 function onScriptError() {
-    msgs.innerHTML = "Cache Tidak Ditemukan! - Hapus Data Browser dan Install Ulang Cache...";
+    msgs.innerHTML = "Cache Tidak Ditemukan! - Hapus Semua Data Browser Dan Mengunduh Ulang Cache";
 }
 
 if (!isPS4) {
     document.addEventListener("DOMContentLoaded", () => {
-        msgs.innerHTML = "Webkin Hanya Untuk Firmware 5.05 Sampai 13.52";
+        msgs.innerHTML = "Hanya Untuk PS4 dengan Firmware 5.05 - 13.52";
     });
 } else {
     if (window.applicationCache.status == '0') {
@@ -33,7 +33,7 @@ if (!isPS4) {
             window.location.replace("cacheslopkit.html");
         } else {
             document.addEventListener("DOMContentLoaded", () => {
-                msgs.innerHTML = 'Firmware Tidak Mendukung: <span style="color: red;">' + fwVersion + '</span>';
+                msgs.innerHTML = 'Tidak mendukung Firmware: <span style="color: red;">' + fwVersion + '</span>';
             });
         }
     } else {
@@ -641,7 +641,7 @@ if (!isPS4) {
       <div id="brand-inner">
         <img src="logo.png" alt="PlayBox Sidoarjo" />
         <div id="brand-text">
-          <b>GOLDHEN PLAYBOX SIDOARJO</b>
+          <b>WEBKIT PLAYBOX SIDOARJO</b>
           <span class="sub">PS4 Host &middot; 5.05 - 13.52 &middot; GoldHEN 2.4B18.12</span>
         </div>
       </div>
@@ -660,7 +660,7 @@ if (!isPS4) {
         <div id="spin"></div>
 
         <!-- STATUS LINE (dipakai semua script exploit) -->
-        <div id="msgs">Mohon Ditunggu!!! PS4 Proses Membuka Game Yang Terkunci..!!</div>
+        <div id="msgs">Mohon Ditunguu..!! PS4 Proses Membuka Game Yang Terkunci..!!</div>
 
         <!-- NOTE STUCK + ADMIN -->
         <div id="stuckNote">
