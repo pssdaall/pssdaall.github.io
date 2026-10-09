@@ -48,22 +48,63 @@
 </div>
 
 <script>
-var uaFull = navigator.userAgent;
-var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
-var isPS4 = match !== null;
-var fwVersion = isPS4 ? match[1] : "Unknown";
-var fwNum = parseFloat(fwVersion);
+(function () {
+    "use strict";
 
-function onScriptError() {
-    document.getElementById("msgs").innerHTML = "Chace Tidak Ditemukan! - Hapus Data Browser Dan Install Ulang Chace ...";
-}
+    var msgsEl = document.getElementById("msgs");
 
-if (!isPS4) {
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("msgs").innerHTML = "Mohon DItunggu, PS4 Sedang Membuka Kunci Game!!!";
-    });
-} else {
-    if (window.applicationCache.status == '0') {
+    function setMsg(text) {
+        if (msgsEl) msgsEl.innerHTML = text;
+    }
+
+    var uaFull = navigator.userAgent;
+    var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+    var isPS4 = match !== null;
+    var fwVersion = isPS4 ? match[1] : "Unknown";
+    var fwNum = parseFloat(fwVersion);
+
+    // Debug info (bisa dibuka lewat ?debug=1)
+    var DEBUG = /[?&]debug=1/.test(location.search);
+    function debugInfo() {
+        var cacheStatus = window.applicationCache ? window.applicationCache.status : "N/A";
+        var info = "<br><br>"
+            + "<b>DEBUG</b><br>"
+            + "UA: " + uaFull + "<br>"
+            + "match: " + (match ? match[1] : "NULL") + "<br>"
+            + "fwVersion: " + fwVersion + "<br>"
+            + "fwNum: " + fwNum + "<br>"
+            + "cacheStatus: " + cacheStatus + " (" + typeof cacheStatus + ")<br>"
+            + "isPS4: " + isPS4;
+        return info;
+    }
+
+    function onScriptError() {
+        setMsg("Content not Found! - Clear Browser Data and Re-Install Cache ...");
+    }
+
+    // Bukan PS4
+    if (!isPS4) {
+        document.addEventListener("DOMContentLoaded", function () {
+            setMsg("Only for PS4 with Firmware 5.05 and 7.00 to 13.52");
+            if (DEBUG) setMsg(msgsEl.innerHTML + debugInfo());
+        });
+        return;
+    }
+
+    // Bukan angka valid
+    if (isNaN(fwNum)) {
+        document.addEventListener("DOMContentLoaded", function () {
+            setMsg('Firmware tidak terdeteksi: <span style="color: #ff4d5e;">' + fwVersion + '</span>');
+            if (DEBUG) setMsg(msgsEl.innerHTML + debugInfo());
+        });
+        return;
+    }
+
+    // Firmware didukung: cek cache
+    var cacheStatus = window.applicationCache ? window.applicationCache.status : 0;
+
+    if (cacheStatus === 0) {
+        // Cache belum ada → redirect ke halaman cache
         if (fwNum == 5.05 || fwNum == 5.07) {
             window.location.replace("cache505.html");
         } else if (fwNum >= 7.00 && fwNum <= 8.52) {
@@ -76,62 +117,66 @@ if (!isPS4) {
             window.location.replace("cacheslopkit.html");
         } else {
             document.addEventListener("DOMContentLoaded", function () {
-                document.getElementById("msgs").innerHTML = 'Unsupported Firmware: <span style="color: red;">' + fwVersion + '</span>';
+                setMsg('Unsupported Firmware: <span style="color: #ff4d5e;">' + fwVersion + '</span>');
+                if (DEBUG) setMsg(msgsEl.innerHTML + debugInfo());
             });
         }
     } else {
+        // Cache sudah ada → load engine
+        setMsg("Menjalankan GoldHEN...");
+
         if (fwNum == 5.05 || fwNum == 5.07) {
-            var script = document.createElement('script');
-            script.src = "505/exploit.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s1 = document.createElement('script');
+            s1.src = "505/exploit.js";
+            s1.onerror = onScriptError;
+            document.head.appendChild(s1);
         }
         else if (fwNum >= 7.00 && fwNum <= 8.52) {
-            var script = document.createElement('script');
-            script.type = 'module';
-            script.src = "700/alert.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s2 = document.createElement('script');
+            s2.type = 'module';
+            s2.src = "700/alert.js";
+            s2.onerror = onScriptError;
+            document.head.appendChild(s2);
         }
         else if (fwNum >= 9.00 && fwNum <= 9.60) {
-            var script = document.createElement('script');
-            script.type = 'module';
-            script.src = "900/alert.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s3 = document.createElement('script');
+            s3.type = 'module';
+            s3.src = "900/alert.js";
+            s3.onerror = onScriptError;
+            document.head.appendChild(s3);
         }
         else if (fwNum >= 10.00 && fwNum <= 11.02) {
-            var script = document.createElement('script');
-            script.src = "css/main.js";
-            script.onerror = onScriptError;
-            script.onload = function () {
+            var s4 = document.createElement('script');
+            s4.src = "css/main.js";
+            s4.onerror = onScriptError;
+            s4.onload = function () {
                 setTimeout(function () { doJb(); }, 500);
             };
-            document.head.appendChild(script);
+            document.head.appendChild(s4);
         }
         else if (fwNum >= 11.50 && fwNum <= 12.02) {
-            var script = document.createElement('script');
-            script.type = 'module';
-            script.src = "slopkit/chain_lapse.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s5 = document.createElement('script');
+            s5.type = 'module';
+            s5.src = "slopkit/chain_lapse.js";
+            s5.onerror = onScriptError;
+            document.head.appendChild(s5);
         }
         else if (fwNum >= 12.50 && fwNum <= 13.00) {
-            var script = document.createElement('script');
-            script.type = 'module';
-            script.src = "slopkit/chain_poops.js";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s6 = document.createElement('script');
+            s6.type = 'module';
+            s6.src = "slopkit/chain_poops.js";
+            s6.onerror = onScriptError;
+            document.head.appendChild(s6);
         }
         else if (fwNum >= 13.02 && fwNum <= 13.52) {
-            var script = document.createElement('script');
-            script.type = 'module';
-            script.src = "slopkit/jb.js?v=19";
-            script.onerror = onScriptError;
-            document.head.appendChild(script);
+            var s7 = document.createElement('script');
+            s7.type = 'module';
+            s7.src = "slopkit/jb.js?v=19";
+            s7.onerror = onScriptError;
+            document.head.appendChild(s7);
         }
     }
-}
+})();
 </script>
 
 </body>
