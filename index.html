@@ -94,16 +94,24 @@ if (!isPS4) {
     document.getElementById("verdict").className = "error";
 } else if (fwNum >= 7.00 && fwNum <= 8.52) {
     verdict = "✓ Terdeteksi 7.00-8.52 → redirect ke cache700.html";
-    document.getElementById("verdict").className = "ok";
+    var verdictEl = document.getElementById("verdict");
+verdictEl.textContent = verdict;
+verdictEl.className = "ok";
 } else if (fwNum >= 9.00 && fwNum <= 9.60) {
     verdict = "✓ Terdeteksi 9.00-9.60 → redirect ke cache900.html";
-    document.getElementById("verdict").className = "ok";
+    var verdictEl = document.getElementById("verdict");
+verdictEl.textContent = verdict;
+verdictEl.className = "ok";
 } else if (fwNum >= 10.00 && fwNum <= 11.02) {
     verdict = "✓ Terdeteksi 10.00-11.02 → redirect ke cachecss.html";
-    document.getElementById("verdict").className = "ok";
+    var verdictEl = document.getElementById("verdict");
+verdictEl.textContent = verdict;
+verdictEl.className = "ok";
 } else if (fwNum >= 11.50 && fwNum <= 13.52) {
     verdict = "✓ Terdeteksi 11.50-13.52 → redirect ke cacheslopkit.html";
-    document.getElementById("verdict").className = "ok";
+    var verdictEl = document.getElementById("verdict");
+verdictEl.textContent = verdict;
+verdictEl.className = "ok";
 } else {
     verdict = "❓ fwNum=" + fwNum + " — tidak masuk range manapun";
     document.getElementById("verdict").className = "error";
