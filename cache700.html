@@ -1,74 +1,359 @@
-<!DOCTYPE html>
-<html manifest="700.manifest" lang="id">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PLAYBOX SIDOARJO // Cache 5.05</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div id="brand">
-    <div id="brand-inner">
-        <img src="logo.png" alt="PlayBox Sidoarjo">
-        <div id="brand-text">
-            <b>WEBKIT PLAYBOX SIDOARJO</b>
-            <span class="sub">PS4 Host &middot; 7.00 - 8.52 &middot; GoldHEN 2.4B18.12</span>
-        </div>
-    </div>
-</div>
-
-<div id="centerWrap">
-    <div id="card">
-        <div class="warning-banner">
-            <div class="warning-icon">!</div>
-            <div class="warning-text">DILARANG MENGONEKSIKAN PS4 KE INTERNET</div>
-        </div>
-        <div id="spin"></div>
-        <h1 id="msgs">Memulai Instalasi Cache...</h1>
-    </div>
-</div>
-
-<div id="footer">
-    <span class="row">
-        Author <b>&copy; 2026 playbox sidoarjo</b>
-        <span class="sep">·</span>
-        GoldHEN <b>v2.4b18.12</b>
-        <span class="sep">·</span>
-        Credit <b>GamerHack</b>
-    </span>
-    <span class="row">
-        Kontak
-        <a href="https://wa.me/6285943796979">WA 085943796979</a>
-        <span class="sep">·</span>
-        TikTok <a href="https://www.tiktok.com/@playbox.sidoarjo">playbox.sidoarjo</a>
-        <span class="sep">·</span>
-        IG <a href="https://www.instagram.com/playbox.sidoarjo">playbox.sidoarjo</a>
-    </span>
-</div>
-
+<!doctype html>
+<html lang="id" manifest="700.manifest">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PS4 [5.05] 7.00 - 13.52 FW GoldHEN Host - Playbox Sidoarjo</title>
 <script>
-history.replaceState(null,null,'index.html');
-var histlength = history.length;
-history.go(-histlength);
-
-function DLProgress(e) {
-    var Percent = Math.round(e.loaded / e.total * 100);
-    window.msgs.innerHTML = "Menginstall Cache Offline: " + Percent + "%";
-}
-function DisplayCacheProgress() {
-    window.msgs.innerHTML = "Cache Berhasil Diinstall \u2714";
-    setTimeout(function () {
-        window.msgs.innerHTML = "Sekarang Tutup dan Buka Ulang Browser ...";
-    }, 1500);
-}
-window.applicationCache.addEventListener("progress", DLProgress, false);
-window.applicationCache.oncached = function (e) { DisplayCacheProgress(); };
-window.applicationCache.onupdateready = function (e) { DisplayCacheProgress(); };
-window.applicationCache.onerror = function (e) {
-    window.msgs.innerHTML = "Gagal Install Cache! - Clear dan Buka Ulang Browser ...";
-};
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";}
+function DisplayCacheProgress(){window.msgs.innerHTML="Cache Installed Successfully ✔";setTimeout(function(){window.msgs.innerHTML="Now Close And Re-Open Your Browser ...";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.innerHTML="Error Installing Cache! - Clear and Re-Open Your Browser ...";};
 </script>
+    <style>
+      :root {
+        --bg: #05070a;
+        --text: #ffffff;
+        --muted: #8b95a3;
+        --accent: #ff283c;
+        --accent-2: #ff6b7a;
+        --amber: #ff9f1c;
+        --amber-2: #ffb84d;
+        --bad: #ff4d5e;
+      }
 
-</body>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body {
+        width: 100%;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* ===== BACKGROUND ===== */
+      body {
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(ellipse 60% 50% at 15% 10%, rgba(255, 40, 60, 0.18), transparent 60%),
+          radial-gradient(ellipse 60% 50% at 85% 90%, rgba(255, 0, 80, 0.15), transparent 60%),
+          radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 60, 0, 0.08), transparent 70%),
+          linear-gradient(rgba(255, 40, 60, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 40, 60, 0.04) 1px, transparent 1px),
+          radial-gradient(rgba(255, 40, 60, 0.08) 1px, transparent 1px);
+        background-size:
+          100% 100%,
+          100% 100%,
+          100% 100%,
+          60px 60px,
+          60px 60px,
+          20px 20px;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(255, 40, 60, 0.025) 0px,
+          rgba(255, 40, 60, 0.025) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: -10%;
+        background:
+          radial-gradient(circle at 30% 40%, rgba(255, 40, 60, 0.15), transparent 30%),
+          radial-gradient(circle at 70% 60%, rgba(255, 0, 80, 0.12), transparent 30%);
+        pointer-events: none;
+        z-index: 0;
+        animation: bgMove 20s ease-in-out infinite alternate;
+      }
+      @keyframes bgMove {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(3%, -2%) scale(1.05); }
+        100% { transform: translate(-2%, 3%) scale(1); }
+      }
+
+      /* ===== HEADER ===== */
+      #brand {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 14px 12px 12px;
+        background: rgba(8, 8, 12, 0.85);
+        border-bottom: 1px solid rgba(255, 40, 60, 0.35);
+        box-shadow: 0 0 32px rgba(255, 40, 60, 0.15);
+        flex-shrink: 0;
+      }
+      #brand-inner {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #brand img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        filter: drop-shadow(0 0 8px rgba(255, 40, 60, 0.7));
+        animation: logoPulse 3s ease-in-out infinite;
+      }
+      @keyframes logoPulse {
+        0%, 100% {
+          box-shadow:
+            0 0 12px rgba(255, 40, 60, 0.5),
+            0 0 24px rgba(255, 40, 60, 0.2);
+        }
+        50% {
+          box-shadow:
+            0 0 20px rgba(255, 40, 60, 0.9),
+            0 0 40px rgba(255, 40, 60, 0.4);
+        }
+      }
+      #brand-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      #brand b {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        color: #ffffff;
+        text-shadow:
+          0 0 8px rgba(255, 40, 60, 0.9),
+          0 0 18px rgba(255, 40, 60, 0.5);
+        line-height: 1.1;
+      }
+      #brand .sub {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      #brand::after {
+        content: "";
+        display: block;
+        height: 1px;
+        margin-top: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 40, 60, 0.7) 50%,
+          transparent 100%
+        );
+      }
+
+      /* ===== CENTER WRAP ===== */
+      #centerWrap {
+        position: relative;
+        z-index: 2;
+        flex: 1 1 auto;
+        padding: 24px 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 0;
+      }
+
+      #card {
+        width: 100%;
+        max-width: 520px;
+        text-align: center;
+        border: 1px solid rgba(255, 40, 60, 0.35);
+        border-radius: 20px;
+        padding: 32px 24px 28px;
+        background: linear-gradient(
+          180deg,
+          rgba(14, 17, 24, 0.95) 0%,
+          rgba(10, 8, 12, 0.92) 100%
+        );
+        box-shadow:
+          0 0 0 1px rgba(255, 40, 60, 0.08) inset,
+          0 0 40px rgba(255, 40, 60, 0.15),
+          0 0 80px rgba(255, 40, 60, 0.06);
+        position: relative;
+        overflow: hidden;
+        animation: cardPulse 3s ease-in-out infinite;
+      }
+
+      #card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 40, 60, 0.9) 50%,
+          transparent 100%
+        );
+      }
+
+      #card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(135deg, rgba(255, 40, 60, 0.6) 0%, transparent 20%) top left / 40px 40px no-repeat,
+          linear-gradient(225deg, rgba(255, 40, 60, 0.6) 0%, transparent 20%) top right / 40px 40px no-repeat,
+          linear-gradient(45deg,  rgba(255, 40, 60, 0.6) 0%, transparent 20%) bottom left / 40px 40px no-repeat,
+          linear-gradient(-45deg, rgba(255, 40, 60, 0.6) 0%, transparent 20%) bottom right / 40px 40px no-repeat;
+        border-radius: 20px;
+      }
+
+      @keyframes cardPulse {
+        0%, 100% {
+          box-shadow:
+            0 0 0 1px rgba(255, 40, 60, 0.08) inset,
+            0 0 30px rgba(255, 40, 60, 0.12),
+            0 0 60px rgba(255, 40, 60, 0.05);
+        }
+        50% {
+          box-shadow:
+            0 0 0 1px rgba(255, 40, 60, 0.15) inset,
+            0 0 50px rgba(255, 40, 60, 0.25),
+            0 0 100px rgba(255, 40, 60, 0.10);
+        }
+      }
+
+      /* ===== STATUS LINE (#msgs, dipakai script cache) ===== */
+      #msgs {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.10em;
+        line-height: 1.4;
+        text-align: center;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          var(--amber) 0%,
+          var(--amber-2) 25%,
+          #fff8e0 50%,
+          var(--amber-2) 75%,
+          var(--amber) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shimmerText 3s linear infinite;
+        filter: drop-shadow(0 0 12px rgba(255, 159, 28, 0.7));
+      }
+      @keyframes shimmerText {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+      }
+
+      /* ===== FOOTER ===== */
+      #footer {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 12px 14px 14px;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+        background: rgba(5, 7, 10, 0.85);
+        border-top: 1px solid rgba(255, 40, 60, 0.25);
+        flex-shrink: 0;
+      }
+      #footer b {
+        color: #ffffff;
+        font-weight: 700;
+        text-shadow: 0 0 8px rgba(255, 40, 60, 0.6);
+      }
+      #footer .row {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #footer .sep {
+        color: rgba(255, 40, 60, 0.7);
+        margin: 0 5px;
+      }
+      #footer a {
+        color: #ffffff;
+        text-decoration: none;
+        border-bottom: 1px dotted rgba(255, 40, 60, 0.6);
+        text-shadow: 0 0 6px rgba(255, 40, 60, 0.5);
+        transition: color 0.2s, border-color 0.2s;
+      }
+      #footer a:hover {
+        color: var(--accent-2);
+        border-bottom-color: var(--accent-2);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 560px), (max-height: 600px) {
+        #centerWrap { padding: 16px 12px; }
+        #card { padding: 24px 18px 20px; border-radius: 16px; }
+        #msgs { font-size: 17px; }
+        #brand b { font-size: 16px; }
+        #brand img { width: 32px; height: 32px; }
+        #footer { font-size: 10px; padding: 8px 10px 10px; }
+        #footer .row { white-space: normal; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="brand">
+      <div id="brand-inner">
+        <img src="logo.png" alt="PlayBox Sidoarjo" />
+        <div id="brand-text">
+          <b>GOLDHEN PLAYBOX SIDOARJO</b>
+          <span class="sub">PS4 Host &middot; 5.05 - 13.52 &middot; GoldHEN 2.4B18.12</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="centerWrap">
+      <div id="card">
+        <div id="msgs">Starting Cache Installation...</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer">
+      <span class="row">
+        Author <b>&copy; 2026 playbox sidoarjo</b>
+        <span class="sep">&middot;</span>
+        GoldHEN <b>v2.4b18.12</b>
+        <span class="sep">&middot;</span>
+        Host base <b>GamerHack</b>
+      </span>
+      <span class="row">
+        WhatsApp
+        <a href="https://wa.me/6285943796979">085943796979</a>
+        <span class="sep">&middot;</span>
+        TikTok <a href="https://www.tiktok.com/@playbox.sidoarjo">playbox.sidoarjo</a>
+        <span class="sep">&middot;</span>
+        IG <a href="https://www.instagram.com/playbox.sidoarjo">playbox.sidoarjo</a>
+      </span>
+    </div>
+  </body>
 </html>
