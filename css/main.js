@@ -53,7 +53,7 @@ async function doJb() {
     }
 
     if (fn.setuid.invoke(0) !== -1) {
-      msgs.innerHTML = "GoldHEN is Already Loaded ...";
+      msgs.innerHTML = "Mohon Kembali!! Game Sudah Tidak Terkunci Dan Bisa Dimainkan";
       return;
     }
 
@@ -111,10 +111,10 @@ async function doJb() {
       load_bin(bin_u8);
     }
 
-    msgs.innerHTML = "GoldHEN v2.4b18.12 Loaded ...";
+    msgs.innerHTML = "Membuka Kunci Game Berhasil, Klik O (O Pertebal/Perjelas) Untuk Kembali";
     logger.info("===END===");
   } catch (e) {
-    msgs.innerHTML = "Failed to Load! Restart Your Console ...";
+    msgs.innerHTML = "Gagal Membuka Kunci Game, Restart?Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
     msgs.style.color = "yellow";
   }
 }
