@@ -1706,7 +1706,7 @@ export async function kexploit() {
   }
 
   if (localStorage.ExploitLoaded === "yes" && sessionStorage.ExploitLoaded != "yes") {
-    msgs.innerHTML = "Mohon Kembali!! Game Sudah Tidak Terkunci Dan Bisa Dimainkan";
+    msgs.innerHTML = "Mohon Kembali!! Game Tidak Terkunci Dan Bisa Dimainkan";
     return new Promise(() => {});
   }
 
@@ -1870,7 +1870,7 @@ function runPayload(path) {
 }
 
 function hostFail() {
-    msgs.innerHTML = "Gagal Membuka Kunci Game, Restart?Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
+    msgs.innerHTML = "Gagal Membuka Kunci Game, Restart/Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
     msgs.style.color = "yellow";
 }
 
@@ -1878,7 +1878,7 @@ kexploit().then(() => {
     setTimeout(() => {
         try {
             runPayload("./goldhen_2.4b18.12.bin");
-            msgs.innerHTML = "Membuka Kunci Game Berhasil, Klik O (O Pertebal/Perjelas) Untuk Kembali";
+            msgs.innerHTML = "Membuka Kunci Game Berhasil, Klik <b style='color:#ffffff;-webkit-text-fill-color:#ffffff'>O</b> Untuk Kembali";
         } catch (e) {
             hostFail();
         }

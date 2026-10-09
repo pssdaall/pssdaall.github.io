@@ -36,14 +36,14 @@ const lines = [];
 function hostOk() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "Membuka Kunci Game Berhasil, Klik O (O Pertebal/Perjelas) Untuk Kembali";
+        m.innerHTML = "Membuka Kunci Game Berhasil, Klik <b style='color:#ffffff;-webkit-text-fill-color:#ffffff'>O</b> Untuk Kembali";
     }
 }
 
 function hostFail() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "Gagal Membuka Kunci Game, Restart?Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
+        m.innerHTML = "Gagal Membuka Kunci Game, Restart/Mulai Ulang PS4 Dan Jalankan Ulang Prosesnya";
         m.style.color = "yellow";
     }
 }
@@ -676,7 +676,7 @@ function makeRpc(worker) {
                 mark("ALREADY-ROOT", "getuid=" + uid0 + " setuid(0)=" + su0);
                 var m = document.getElementById("msgs");
                 if (m) {
-                    m.innerHTML = "Mohon Kembali!! Game Sudah Tidak Terkunci Dan Bisa Dimainkan";
+                    m.innerHTML = "Mohon Kembali!! Game Tidak Terkunci Dan Bisa Dimainkan";
                 }
                 return;
             }
