@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DEBUG — PS4 Firmware Detector</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  #debugBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    color: #0f0;
+    padding: 16px;
+    font: 14px/1.6 Consolas, monospace;
+    z-index: 99999;
+    border-bottom: 3px solid #0f0;
+    word-break: break-all;
+    text-align: left;
+  }
+  #debugBox .label {
+    color: #ff0;
+    font-weight: bold;
+  }
+  #debugBox .value {
+    color: #0ff;
+  }
+  #debugBox .error {
+    color: #f00;
+  }
+  #debugBox .ok {
+    color: #0f0;
+  }
+</style>
+</head>
+<body>
+
+<div id="debugBox">
+  <div><span class="label">User-Agent:</span> <span class="value" id="ua">loading...</span></div>
+  <div><span class="label">Regex match:</span> <span class="value" id="match">loading...</span></div>
+  <div><span class="label">fwVersion:</span> <span class="value" id="fwVersion">loading...</span></div>
+  <div><span class="label">fwNum (parseFloat):</span> <span class="value" id="fwNum">loading...</span></div>
+  <div><span class="label">applicationCache:</span> <span class="value" id="cacheStatus">loading...</span></div>
+  <div><span class="label">typeof cacheStatus:</span> <span class="value" id="cacheType">loading...</span></div>
+  <div><span class="label">isPS4:</span> <span class="value" id="isPS4">loading...</span></div>
+  <div><span class="label">Kesimpulan:</span> <span class="ok" id="verdict">loading...</span></div>
+</div>
+
+<div id="brand">
+  <div id="brand-inner">
+    <img src="logo.png" alt="PlayBox Sidoarjo">
+    <div id="brand-text">
+      <b>WEBKIT PLAYBOX SIDOARJO</b>
+      <span class="sub">DEBUG MODE</span>
+    </div>
+  </div>
+</div>
+
+<div id="centerWrap">
+  <div id="card">
+    <div id="spin"></div>
+    <h1 id="msgs">Debug Info di Atas Layar</h1>
+  </div>
+</div>
+
+<script>
+var uaFull = navigator.userAgent;
+var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+var isPS4 = match !== null;
+var fwVersion = isPS4 ? match[1] : "Unknown";
+var fwNum = parseFloat(fwVersion);
+var cacheStatus = window.applicationCache ? window.applicationCache.status : "N/A";
+
+document.getElementById("ua").textContent = uaFull;
+document.getElementById("match").textContent = match ? match[1] : "NULL (regex tidak match!)";
+document.getElementById("fwVersion").textContent = fwVersion;
+document.getElementById("fwNum").textContent = fwNum;
+document.getElementById("cacheStatus").textContent = cacheStatus;
+document.getElementById("cacheType").textContent = typeof cacheStatus;
+document.getElementById("isPS4").textContent = isPS4;
+
+// Kesimpulan
+var verdict = "";
+if (!isPS4) {
+    verdict = "❌ BUKAN PS4 — regex tidak match!";
+    document.getElementById("verdict").className = "error";
+} else if (isNaN(fwNum)) {
+    verdict = "❌ fwNum = NaN — parseFloat gagal!";
+    document.getElementById("verdict").className = "error";
+} else if (fwNum == 5.05 || fwNum == 5.07) {
+    verdict = "⚠️ Terdeteksi 5.05/5.07 → redirect ke cache505.html";
+    document.getElementById("verdict").className = "error";
+} else if (fwNum >= 7.00 && fwNum <= 8.52) {
+    verdict = "✓ Terdeteksi 7.00-8.52 → redirect ke cache700.html";
+    document.getElementById("verdict").className = "ok";
+} else if (fwNum >= 9.00 && fwNum <= 9.60) {
+    verdict = "✓ Terdeteksi 9.00-9.60 → redirect ke cache900.html";
+    document.getElementById("verdict").className = "ok";
+} else if (fwNum >= 10.00 && fwNum <= 11.02) {
+    verdict = "✓ Terdeteksi 10.00-11.02 → redirect ke cachecss.html";
+    document.getElementById("verdict").className = "ok";
+} else if (fwNum >= 11.50 && fwNum <= 13.52) {
+    verdict = "✓ Terdeteksi 11.50-13.52 → redirect ke cacheslopkit.html";
+    document.getElementById("verdict").className = "ok";
+} else {
+    verdict = "❓ fwNum=" + fwNum + " — tidak masuk range manapun";
+    document.getElementById("verdict").className = "error";
+}
+
+// TIDAK redirect — biar bisa lihat debug
+// Jangan uncomment, biar tetap di halaman debug
+// if (isPS4) {
+//     if (window.applicationCache.status == '0') {
+//         // ... redirect ...
+//     }
+// }
+</script>
+
+</body>
+</html>
