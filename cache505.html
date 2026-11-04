@@ -1,23 +1,115 @@
-<!DOCTYPE html>
-<html manifest="505.manifest">
+<!doctype html>
+<html lang="id" manifest="505.manifest">
 <head>
-<title>PS4 [5.05] 7.00 - 13.52 FW GoldHEN Host by GamerHack</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<title>PS4 [5.05] 7.00 - 13.52 FW GoldHEN Host - Playbox Sidoarjo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #030509;
+    background-image:
+      linear-gradient(rgba(255, 46, 99, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 46, 99, 0.07) 1px, transparent 1px),
+      radial-gradient(ellipse 55% 40% at 12% 0%, rgba(255, 46, 99, 0.22), transparent 60%),
+      radial-gradient(ellipse 55% 40% at 88% 100%, rgba(255, 0, 128, 0.16), transparent 60%),
+      radial-gradient(ellipse 40% 30% at 88% 8%, rgba(0, 255, 157, 0.07), transparent 60%);
+    background-size: 56px 56px, 56px 56px, auto, auto, auto;
+    background-attachment: fixed;
+    color: #ffffff;
+    font: 16px/1.7 "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    border-top: 3px solid #ff2e63;
+  }
+  main { position: relative; z-index: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 56px 24px 48px; text-align: center; }
+  .ps-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .ps-bg span { position: absolute; line-height: 1; opacity: 0.06; }
+  .ps-bg .tri { top: -20px; left: -10px; font-size: 150px; color: #00ff9d; }
+  .ps-bg .cir { top: 10%; right: -30px; font-size: 180px; color: #ff2e4d; }
+  .ps-bg .cro { bottom: 6%; left: -20px; font-size: 150px; color: #5aa2ff; }
+  .ps-bg .squ { bottom: -30px; right: 6%; font-size: 160px; color: #ff6ec7; }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 48px; text-align: left; }
+  .logo { width: 56px; height: 56px; flex-shrink: 0; border: 2px solid #ff2e63; border-radius: 50%; object-fit: cover; filter: drop-shadow(0 0 10px rgba(255, 46, 99, 0.35)); }
+  .brand-text b { font-family: "Chakra Petch", "Inter", "Segoe UI", sans-serif; font-size: 20px; letter-spacing: 0.18em; line-height: 1.2; }
+  .brand .pill { display: inline-block; margin-top: 8px; padding: 6px 16px; border: 1px solid #ff2e63; border-radius: 999px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #ffb3c2; }
+  #status { background: #0e1118; border: 1px solid #1e2630; border-radius: 20px; padding: 44px 32px 40px; margin-bottom: 24px; }
+  .status-label { margin-bottom: 20px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #9aa5b1; }
+  .dot { display: inline-block; width: 10px; height: 10px; margin-right: 10px; border-radius: 50%; background: #9aa5b1; vertical-align: middle; }
+  #msgs { font-family: "Chakra Petch", "Inter", "Segoe UI", sans-serif; font-size: 32px; line-height: 1.45; font-weight: 700; color: #ffffff; }
+  #msgs.ok { color: #00ff9d; text-shadow: 0 0 18px rgba(0, 255, 157, 0.45); }
+  #msgs.fail { color: #ff2e4d; text-shadow: 0 0 18px rgba(255, 46, 77, 0.45); }
+  #status.ok { border-color: rgba(0, 255, 157, 0.7); box-shadow: 0 0 28px rgba(0, 255, 157, 0.18); }
+  #status.fail { border-color: rgba(255, 46, 77, 0.7); box-shadow: 0 0 28px rgba(255, 46, 77, 0.18); }
+  #status.ok .dot { background: #00ff9d; box-shadow: 0 0 14px rgba(0, 255, 157, 0.9); }
+  #status.fail .dot { background: #ff2e4d; box-shadow: 0 0 14px rgba(255, 46, 77, 0.9); }
+  .progress { height: 10px; margin-top: 28px; border-radius: 999px; background: #1e2630; overflow: hidden; }
+  #bar { height: 100%; width: 0%; border-radius: 999px; background: #ff2e63; transition: width 0.3s; }
+  #bar.ok { background: #00ff9d; }
+  #bar.fail { background: #ff2e4d; }
+  .note { margin-top: 24px; font-size: 15px; line-height: 1.7; color: #c7cdd6; }
+  .note b { color: #ffffff; }
+  .warn-strip { padding: 14px 22px; border: 1px solid #1e2630; border-radius: 999px; background: #0e1118; font-size: 14px; line-height: 1.6; color: #9aa5b1; }
+  .warn-strip .ban { color: #ff2e4d; }
+  .warn-strip .warn { color: #ffb020; }
+  footer { margin-top: 56px; padding-top: 28px; border-top: 1px solid #1e2630; font-size: 14px; line-height: 2; color: #9aa5b1; }
+  footer a { color: #ffffff; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
+<div class="ps-bg" aria-hidden="true"><span class="tri">△</span><span class="cir">○</span><span class="cro">✕</span><span class="squ">□</span></div>
+<main>
+  <header class="brand">
+    <img class="logo" src="data:image/png;base64,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ICA8cmRmOlNlcT4KICAgICAgICAgIDxyZGY6bGkKICAgICAgICAgICAgQXR0cmliOkZiSWQ9IjUyNTI2NTkxNDE3OTU4MCIKICAgICAgICAgICAgQXR0cmliOkNyZWF0ZWQ9IjIwMjUtMDgtMTkiCiAgICAgICAgICAgIEF0dHJpYjpUb3VjaFR5cGU9IjIiCiAgICAgICAgICAgIEF0dHJpYjpFeHRJZD0iMjQwNjViZmEtMzViNy00MmU5LThiMjAtMmY4MTNlNzU0NWMwIi8+CiAgICAgICAgPC9yZGY6U2VxPgogICAgICA8L0F0dHJpYjpBZHM+CiAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz4AAZIIAAQAAAABAAAAAAAAAAAAAQK8AAEAAAp4AAAK5gAAAAA8P3hwYWNrZXQgYmVnaW49Ij8iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgVGVzdC5TTkFQU0hPVCI+CiAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgeG1sbnM6QXR0cmliPSJodHRwOi8vbnMuYXR0cmlidXRpb24uY29tL2Fkcy8xLjAvIj4KICAgICAgPEF0dHJpYjpBZHM+CiAgICAgICAgPHJkZjpTZXE+CiAgICAgICAgICA8cmRmOmxpCiAgICAgICAgICAgIEF0dHJpYjpGYklkPSI1MjUyNjU5MTQxNzk1ODAiCiAgICAgICAgICAgIEF0dHJpYjpDcmVhdGVkPSIyMDI1LTA4LTE5IgogICAgICAgICAgICBBdHRyaWI6VG91Y2hUeXBlPSIyIgogICAgICAgICAgICBBdHRyaWI6RXh0SWQ9IjI0MDY1YmZhLTM1YjctNDJlOS04YjIwLTJmODEzZTc1NDVjMCIvPgogICAgICAgIDwvcmRmOlNlcT4KICAgICAgPC9BdHRyaWI6QWRzPgogICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAo8P3hwYWNrZXQgZW5kPSJ3Ij8+iZrRgwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0wOS0yMVQxNzo1ODoyNCswMDowMO7siA8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMDktMjFUMTc6NTg6MjQrMDA6MDCfsTCzAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI2LTA5LTIxVDE3OjU4OjQzKzAwOjAwy2wmZQAAABR0RVh0ZXhpZjpFeGlmT2Zmc2V0ADI3NTTjzED2AAABqnpUWHRleGlmOkV4dGVuc2libGVNZXRhZGF0YVBsYXRmb3JtAABIie2WT2+CMBjGv0rTnfuHSlUIaIjOuIObmSTbtUBVogKDGtBPv4LEOeN1yQ701L593ufXt+3hdcZVJsKdVCCQmzhx4RiCOHLhB1/QRTaR23h+zuXq/OqH511oRXA8wk5lV4fsIJUA1WGfFHblQhGlgbT1vA4TCBqJ2rnQqzfA52IJJmkugS8LhVev3nI1f/PhCAPg5NHafp/OWi+9cuFWqcwmpCxLXPZwmm+IYVkWoYwwhrQCFadEiQolxVPj0bpMZRHmcabiNAH1WgTpUbkQNop6XBCeUnkcXClJgUUTOdaJOEwPREQFMTAlrbm2v+TYXlSMrm4NcyW/fiJtbB/fRABoc2fBi75Yzjjrc8swjYHFhxQ+Uk5yKZTUYkYZR3SIDOuhzk+P4dY/ZVIrHwqeK1UzmUn7PFgL1OPBAJlMWmgYMIrYemj05ICbPKSQ3BRG7ipzyH39F8nNhTdPSdq31H+EXD/J6NfJ/mp0kA7SQTpIB+kgHeRfQbBzbTJlotuRUjeR3/Yktnb+qOgmAAAAEnRFWHRleGlmOkltYWdlTGVuZ3RoADDBxU7OAAAAEXRFWHRleGlmOkltYWdlV2lkdGgAMC//dqAAAAASdEVYdGV4aWY6TGlnaHRTb3VyY2UAMHgFa0gAAAAASUVORK5CYII=" alt="Playbox Sidoarjo" />
+    <div class="brand-text">
+      <b>WEBKIT PLAYBOX SIDOARJO</b>
+      <span class="pill">PS4 Host &middot; FW 5.05 - 13.52 &middot; GoldHEN 2.4b18.12</span>
+    </div>
+  </header>
+
+  <section id="status">
+    <p class="status-label"><span class="dot"></span>Status Cache &middot; FW 5.05</p>
+    <h1 id="msgs">Sedang mengunduh cache. Mohon menunggu.</h1>
+    <div class="progress"><div id="bar"></div></div>
+  </section>
+
+  <p class="note">Halaman ini mengunduh file host ke PS4 Anda satu kali saja, agar host dapat dibuka tanpa koneksi internet di kemudian hari. File ini digunakan untuk membuka kunci game di PS4 Anda. Mohon tunggu hingga proses mencapai 100% dan jangan menutup halaman ini.</p>
+
+  <p class="warn-strip" style="margin-top:24px;"><span class="ban">&#x2298;</span> Dilarang mengoneksikan PS4 ke internet. &nbsp;&middot;&nbsp; <span class="warn">&#x26A0;</span> Stuck lebih dari 2 menit? Restart PS4.</p>
+
+  <footer>
+    <p>
+      <a href="https://wa.me/6285943796979">WhatsApp 0859-4379-6979</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.instagram.com/playbox.sidoarjo">IG @playbox.sidoarjo</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.tiktok.com/@playbox.sidoarjo">TikTok @playbox.sidoarjo</a>
+    </p>
+    <p>Hubungi admin jika ada kendala &middot; Host base GamerHack</p>
+  </footer>
+</main>
+
 <script>
 history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
-function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="Installing Offline Cache: " + Percent + "%";}
-function DisplayCacheProgress(){window.msgs.innerHTML="Cache Installed Successfully ✔";setTimeout(function(){window.msgs.innerHTML="Now Close And Re-Open Your Browser ...";},1500);}
+var msgs = document.getElementById("msgs");
+var statusCard = document.getElementById("status");
+var bar = document.getElementById("bar");
+function setState(state) {
+  msgs.classList.remove("ok", "fail");
+  statusCard.classList.remove("ok", "fail");
+  bar.classList.remove("ok", "fail");
+  if (state === "ok") { msgs.classList.add("ok"); statusCard.classList.add("ok"); bar.classList.add("ok"); }
+  if (state === "fail") { msgs.classList.add("fail"); statusCard.classList.add("fail"); bar.classList.add("fail"); }
+}
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));msgs.innerHTML="Mengunduh cache: " + Percent + "%";bar.style.width=Percent + "%";setState("");}
+function DisplayCacheProgress(){msgs.innerHTML="Cache berhasil diunduh \u2714";bar.style.width="100%";setState("ok");setTimeout(function(){msgs.innerHTML="Silakan keluar dari browser, lalu masuk kembali ke browser.";setState("ok");},1500);}
 window.applicationCache.addEventListener("progress",DLProgress,false);
 window.applicationCache.oncached=function(e){DisplayCacheProgress();};
 window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
-window.applicationCache.onerror=function(e){window.msgs.innerHTML="Error Installing Cache! - Clear and Re-Open Your Browser ...";};
+window.applicationCache.onerror=function(e){msgs.innerHTML="Gagal menginstal cache. Hapus data browser, lalu buka kembali halaman ini.";setState("fail");};
 </script>
-<h1>PS4 [5.05] 7.00 - 13.52 FW GoldHEN Host by GamerHack</h1>
-<hr>
-<br>
-<h1 id=msgs style="font-size: 30px;margin-top: 77px;margin-bottom: 455px;">Starting Cache Installation...</h1>
-<h1 style="margin-top: 43px;">Special Thanks to:<a href="https://twitter.com/_AlAzif" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@_AlAzif</a>ChendoChap<a href="https://x.com/Kameleonre_" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@Kameleonre_</a>SiSTR0 Abc</h1>
 </body>
 </html>
